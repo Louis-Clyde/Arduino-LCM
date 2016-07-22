@@ -24,7 +24,7 @@ void loop() {
   Serial.print("\t\Hum %: "); Serial.println(htu.readHumidity());
   delay(100);
 
-  if ((htu.readTemperature() *1.8 + 32) > 60){
+  if ((htu.readTemperature() *1.8 + 32) > 90){
     digitalWrite(13, HIGH);
     
     }
