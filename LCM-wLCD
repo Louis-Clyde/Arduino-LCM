@@ -31,7 +31,7 @@ void loop() {
   lcd.print("Hum: "); lcd.print(htu.readHumidity());
   delay(1000);
 
-  if ((htu.readTemperature() *1.8 + 32) > 60){
+  if ((htu.readTemperature() *1.8 + 32) > 90){
     digitalWrite(13, HIGH);
     
     }
