@@ -1,0 +1,38 @@
+#include <Wire.h>
+#include <Adafruit_HTU21DF.h>
+
+Adafruit_HTU21DF htu = Adafruit_HTU21DF();
+
+void setup() {
+  for (int count = 0; count < 6; count++){
+
+  pinMode(13, OUTPUT);
+  pinMode(A0, INPUT);
+  Serial.begin(9600);
+  digitalWrite(1, HIGH);
+  
+  }
+
+if (!htu.begin()) {
+    Serial.println("Couldn't find sensor!");
+    while (1);
+  }
+}
+
+void loop() {
+  Serial.print("Temp F: "); Serial.print(htu.readTemperature() * 1.8 + 32);
+  Serial.print("\t\Hum %: "); Serial.println(htu.readHumidity());
+  delay(100);
+
+  if ((htu.readTemperature() *1.8 + 32) > 60){
+    digitalWrite(13, HIGH);
+    
+    }
+  else{
+    digitalWrite(13, LOW);
+    
+    }
+}
+
+//Housing Box Dimentions(Inside): 6"x6"x7"
+//(Actual): 6.5"x6.5"x7"
