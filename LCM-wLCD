@@ -1,0 +1,47 @@
+#include <LiquidCrystal.h>
+#include <Wire.h>
+#include <Adafruit_HTU21DF.h>
+
+
+Adafruit_HTU21DF htu = Adafruit_HTU21DF();
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+void setup() {
+
+  pinMode(13, OUTPUT);
+  pinMode(A0, INPUT);
+  lcd.begin(16, 2);
+  Serial.begin(9600);
+  digitalWrite(1, HIGH);
+
+  lcd.print("INT");
+
+if (!htu.begin()) {
+    Serial.println("Couldn't find sensor!");
+    while (1);
+  }
+}
+
+void loop() {
+  lcd.display();
+  lcd.clear();
+  
+  lcd.print("TmpF: "); lcd.print(htu.readTemperature() * 1.8 + 32);
+  lcd.setCursor(0, 1);
+  lcd.print("Hum: "); lcd.print(htu.readHumidity());
+  delay(1000);
+
+  if ((htu.readTemperature() *1.8 + 32) > 60){
+    digitalWrite(13, HIGH);
+    
+    }
+  else{
+    digitalWrite(13, LOW);
+    
+    }
+
+  if (Serial.available()){
+    delay(100);
+    lcd.clear();
+  
+  while (Serial.available() > 0){
